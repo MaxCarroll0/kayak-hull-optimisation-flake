@@ -1,0 +1,3 @@
+[submodule "kayak-hull-optimisation"]
+	path = kayak-hull-optimisation
+	url = git@github.com:Extreme-Kayaking/kayak-hull-optimisation.git
