@@ -1,3 +1,0 @@
-"""
-Values/functions of hyperparameters
-"""
