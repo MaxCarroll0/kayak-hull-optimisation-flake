@@ -27,6 +27,7 @@
             numpy
             pyfoam
             matplotlib
+            autopep8
           ]))
         ];
 
