@@ -31,7 +31,6 @@
               pyfoam
               matplotlib
               autopep8
-              ruff
               pyright
             ]
           ))
