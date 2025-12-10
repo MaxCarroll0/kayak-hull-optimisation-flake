@@ -10,7 +10,7 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
-      python = pkgs.python312;
+      python = pkgs.python39;
       pyfoam = python.pkgs.buildPythonPackage rec {
         pname = "PyFoam";
         version = "2023.7";
