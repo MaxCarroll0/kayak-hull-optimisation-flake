@@ -31,9 +31,9 @@
               pyfoam
               matplotlib
               autopep8
-              pyright
             ]
           ))
+          pyright
         ];
 
         shellHook = '''';
