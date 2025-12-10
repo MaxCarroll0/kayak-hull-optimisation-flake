@@ -31,6 +31,8 @@
               pyfoam
               matplotlib
               autopep8
+              trimesh
+              pyglet
             ]
           ))
           pyright
