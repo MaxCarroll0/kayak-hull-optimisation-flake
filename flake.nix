@@ -33,6 +33,7 @@
               autopep8
               trimesh
               pyglet
+              typing
             ]
           ))
           pyright
