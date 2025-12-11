@@ -47,15 +47,6 @@
               return ctypes.cdll.LoadLibrary(path)
           EOF
         '';
-
-        #postPatch = ''
-        #
-        #  echo "Directories:"
-        #  find . -maxdepth 4 -type d -print
-        #  echo "Python files:"
-        #  find . -maxdepth 6 -name "*.py" -print
-        #  exit 1
-        #'';
       };
     in
     {
