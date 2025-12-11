@@ -56,6 +56,7 @@
           libGL
           libGLU
           xorg.libX11
+          xorg.libXext
           (python.withPackages (
             p: with p; [
               future
@@ -68,6 +69,9 @@
               typing
               manifold3d
               scipy
+              shapely
+              networkx
+              rtree
             ]
           ))
           pyright
