@@ -1,5 +1,17 @@
 {
   "nodes": {
+    "hullopt": {
+      "flake": false,
+      "locked": {
+        "path": "./kayak-hull-optimisation",
+        "type": "path"
+      },
+      "original": {
+        "path": "./kayak-hull-optimisation",
+        "type": "path"
+      },
+      "parent": []
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1764316264,
@@ -18,6 +30,7 @@
     },
     "root": {
       "inputs": {
+        "hullopt": "hullopt",
         "nixpkgs": "nixpkgs"
       }
     }

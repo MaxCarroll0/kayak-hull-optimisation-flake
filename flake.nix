@@ -2,11 +2,13 @@
   description = "Kayak Hull Optimisation";
 
   inputs = {
+    self.submodules = true;
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    hullopt.url = "./kayak-hull-optimisation";
   };
 
   outputs =
-    { self, nixpkgs, ... }:
+    { self, nixpkgs, hullopt, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -77,7 +79,10 @@
           pyright
         ];
 
-        shellHook = '''';
+        # TODO: Package project in editable mode rather than using PYTHONPATH
+        shellHook = ''
+          	  export PYTHONPATH=${toString ./kayak-hull-optimisation}:$PYTHONPATH
+          	'';
       };
     };
 }
