@@ -8,11 +8,28 @@
   };
 
   outputs =
-    { self, nixpkgs, hullopt, ... }:
+    {
+      self,
+      nixpkgs,
+      hullopt,
+      ...
+    }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
-      python = pkgs.python311;
+      pythonBase = pkgs.python311;
+      python = pythonBase.override {
+        packageOverrides = self: super: {
+          numpy = super."numpy_1";
+          paramz = super.paramz.overridePythonAttrs(_: {
+            doCheck = false; # Hangs on lists_and_dictionaries tests
+          });
+          gpy = super.gpy.overridePythonAttrs(_: {
+            doCheck = false; # Fails due to deprecation warning on MultioutputGP_gradobs_prod_mix test
+          });
+        };
+      };
+
       pyfoam = python.pkgs.buildPythonPackage rec {
         pname = "PyFoam";
         version = "2023.7";
@@ -20,6 +37,14 @@
         src = python.pkgs.fetchPypi {
           inherit pname version format;
           sha256 = "sha256-qLCM7hnwqD+OuTl2OBOfMQWX16W89FBatjoGl/YNFFY=";
+        };
+      };
+      mpl_axes_aligner = python.pkgs.buildPythonPackage rec {
+        pname = "mpl_axes_aligner";
+        version = "1.3";
+        src = python.pkgs.fetchPypi {
+          inherit pname version;
+          sha256 = "sha256-/fWvxaVAlDBCdFrzAGO0ir4BM30pAzJpXufSE1bkF2g=";
         };
       };
       pyglet1 = python.pkgs.buildPythonPackage rec {
@@ -74,6 +99,8 @@
               shapely
               networkx
               rtree
+              mpl_axes_aligner
+              gpy
             ]
           ))
           pyright
