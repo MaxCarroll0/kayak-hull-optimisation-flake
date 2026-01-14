@@ -27,7 +27,61 @@
           gpy = super.gpy.overridePythonAttrs(_: {
             doCheck = false; # Fails due to deprecation warning on MultioutputGP_gradobs_prod_mix test
           });
+          threadpoolctl = super.threadpoolctl.overridePythonAttrs(_: {
+            version = "3.1.0";
+            src = super.fetchPypi {
+              pname = "threadpoolctl";
+              version = "3.1.0";
+              sha256 = "sha256-ozW6rPqkQArh8NjjpY1mdNL4go43FrsoAsRJVa05E4A=";
+            };
+          });
         };
+      };
+
+      scikit-learn_1 = python.pkgs.buildPythonPackage rec {
+        version = "1.5.2";
+        pname = "scikit_learn";
+        pyproject = true;
+
+        src = python.pkgs.fetchPypi {
+          inherit pname version;
+          sha256 = "sha256-tCN+17P90KSIJ5LmjvJUXVuqUKyju0WqffRoE4rY+U0=";
+        };
+
+
+        buildInputs = with python.pkgs; [
+          numpy.blas
+          pillow
+        ];
+
+        nativeBuildInputs = [
+          #nixpkgs.gfortran
+        ];
+
+        build-system = with python.pkgs; [
+          cython
+          meson-python
+          numpy
+          scipy
+        ];
+
+        dependencies = with python.pkgs; [
+          joblib
+          numpy
+          scipy
+          threadpoolctl
+        ];
+
+        postPatch = ''
+          substituteInPlace pyproject.toml \
+            --replace-fail "numpy>=2" "numpy"
+
+          substituteInPlace meson.build --replace-fail \
+            "run_command('sklearn/_build_utils/version.py', check: true).stdout().strip()," \
+            "'${version}',"
+        '';
+
+        doCheck = false;
       };
 
       pyfoam = python.pkgs.buildPythonPackage rec {
@@ -39,6 +93,7 @@
           sha256 = "sha256-qLCM7hnwqD+OuTl2OBOfMQWX16W89FBatjoGl/YNFFY=";
         };
       };
+
       mpl_axes_aligner = python.pkgs.buildPythonPackage rec {
         pname = "mpl_axes_aligner";
         version = "1.3";
@@ -47,6 +102,7 @@
           sha256 = "sha256-/fWvxaVAlDBCdFrzAGO0ir4BM30pAzJpXufSE1bkF2g=";
         };
       };
+
       pyglet1 = python.pkgs.buildPythonPackage rec {
         pname = "pyglet";
         version = "1.4.2";
@@ -101,6 +157,8 @@
               rtree
               mpl_axes_aligner
               gpy
+              scikit-learn_1
+              pandas
             ]
           ))
           pyright
