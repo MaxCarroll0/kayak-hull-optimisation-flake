@@ -159,6 +159,7 @@
               gpy
               scikit-learn_1
               pandas
+              customtkinter
             ]
           ))
           pyright
