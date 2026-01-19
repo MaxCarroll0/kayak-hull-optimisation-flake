@@ -250,10 +250,8 @@
         shellHook = ''
           	  export PYTHONPATH=${toString ./kayak-hull-optimisation}:$PYTHONPATH
 
-              if [ ! -d .venv ]; then
-                python -m venv .venv
-              fi
-              source .venv/bin/activate
+              export PIP_PREFIX=$PWD/.pip
+              export PYTHONPATH=$PWD/.pip/lib/python3.11/site-packages:$PYTHONPATH
           	'';
       };
     };
