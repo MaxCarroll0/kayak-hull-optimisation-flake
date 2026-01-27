@@ -31,16 +31,16 @@
       python = pythonBase.override {
         packageOverrides = self: super: {
           numpy = super."numpy_1";
-          paramz = super.paramz.overridePythonAttrs(_: {
+          paramz = super.paramz.overridePythonAttrs (_: {
             doCheck = false; # Hangs on lists_and_dictionaries tests
           });
-          gpy = super.gpy.overridePythonAttrs(_: {
+          gpy = super.gpy.overridePythonAttrs (_: {
             doCheck = false; # Fails due to deprecation warning on MultioutputGP_gradobs_prod_mix test
           });
-          pytest-doctestplus = super.pytest-doctestplus.overridePythonAttrs(_: {
+          pytest-doctestplus = super.pytest-doctestplus.overridePythonAttrs (_: {
             doCheck = false;
           });
-          threadpoolctl = super.threadpoolctl.overridePythonAttrs(_: {
+          threadpoolctl = super.threadpoolctl.overridePythonAttrs (_: {
             version = "3.1.0";
             src = super.fetchPypi {
               pname = "threadpoolctl";
@@ -48,7 +48,7 @@
               sha256 = "sha256-ozW6rPqkQArh8NjjpY1mdNL4go43FrsoAsRJVa05E4A=";
             };
           });
-          pywavelets = super.pywavelets.overridePythonAttrs(_: {
+          pywavelets = super.pywavelets.overridePythonAttrs (_: {
             version = "1.8.0";
             src = super.fetchPypi {
               pname = "pywavelets";
@@ -65,7 +65,7 @@
               cython
             ];
           });
-          pyerfa = super.pyerfa.overridePythonAttrs(_: {
+          pyerfa = super.pyerfa.overridePythonAttrs (_: {
             version = "2.0.1.4";
             src = super.fetchPypi {
               pname = "pyerfa";
@@ -77,7 +77,7 @@
               substituteInPlace pyproject.toml --replace "numpy>=2.0.0rc1" "numpy"
             '';
           });
-          astropy = super.astropy.overridePythonAttrs(_: {
+          astropy = super.astropy.overridePythonAttrs (_: {
             version = "6.1.4";
             pyproject = true;
             src = super.fetchPypi {
@@ -90,12 +90,12 @@
               substituteInPlace pyproject.toml --replace "numpy>=2.0.0" "numpy"
             '';
           });
-          statsmodels = super.statsmodels.overridePythonAttrs(_: {
+          statsmodels = super.statsmodels.overridePythonAttrs (_: {
             postPatch = ''
               substituteInPlace pyproject.toml --replace "numpy<3,>=2.0.0" "numpy"
             '';
           });
-          numcodecs = super.numcodecs.overridePythonAttrs(_: {
+          numcodecs = super.numcodecs.overridePythonAttrs (_: {
             version = "0.10.0";
             src = super.fetchPypi {
               pname = "numcodecs";
@@ -107,7 +107,7 @@
             #  substituteInPlace pyproject.toml --replace "numpy>=2" "numpy"
             #'';
           });
-            scikit-learn = python.pkgs.buildPythonPackage rec {
+          scikit-learn = python.pkgs.buildPythonPackage rec {
             version = "1.5.2";
             pname = "scikit_learn";
             pyproject = true;
@@ -116,7 +116,6 @@
               inherit pname version;
               sha256 = "sha256-tCN+17P90KSIJ5LmjvJUXVuqUKyju0WqffRoE4rY+U0=";
             };
-
 
             buildInputs = with python.pkgs; [
               numpy.blas
@@ -154,8 +153,6 @@
           };
         };
       };
-
-
 
       pyfoam = python.pkgs.buildPythonPackage rec {
         pname = "PyFoam";
@@ -215,6 +212,7 @@
           just
           libGL
           libGLU
+          blender
           xorg.libX11
           xorg.libXext
           (python.withPackages (
